@@ -61,6 +61,9 @@ jobs:
           cp -r _build/html/* gh-pages/rpa-spec/
           cp _build/latex/rpa-spec.pdf gh-pages/rpa-spec/
 
+          # Add .nojekyll to disable Jekyll processing (needed for _static folder)
+          touch gh-pages/rpa-spec/.nojekyll
+
           # Commit and push
           cd gh-pages
           git config user.name "github-actions[bot]"
