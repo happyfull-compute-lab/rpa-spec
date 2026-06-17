@@ -43,33 +43,27 @@ jobs:
           pdflatex -interaction=nonstopmode rpa-spec.tex || true
           pdflatex -interaction=nonstopmode rpa-spec.tex || true
 
+      - name: Package artifacts
+        run: |
+          # Create HTML zip
+          cd _build/html && zip -r ../../rpa-spec-html.zip . && cd ../..
+          # Create source code zip (excluding build artifacts)
+          zip -r rpa-spec-source.zip . -x "*.git*" -x "_build/*" -x ".venv/*" -x "*.pyc" -x "__pycache__/*"
+
       - name: Create Release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
         with:
           files: |
             _build/latex/rpa-spec.pdf
-            _build/html/**/*
+            rpa-spec-html.zip
+            rpa-spec-source.zip
           body: |
             ## RPA Architecture Specification ${{ github.ref_name }}
 
             ### Downloads
-            - `rpa-spec.pdf` - PDF version
-            - `html.zip` - HTML version (extract and open index.html)
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload HTML artifact
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          cd _build/html && zip -r ../../rpa-spec-html.zip . && cd ../..
-
-      - name: Create Release with HTML
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            _build/latex/rpa-spec.pdf
-            rpa-spec-html.zip
+            - `rpa-spec.pdf` - PDF version for printing
+            - `rpa-spec-html.zip` - HTML version (extract and open index.html)
+            - `rpa-spec-source.zip` - Source code
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
