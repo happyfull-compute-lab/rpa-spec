@@ -8,7 +8,7 @@
 
 ### 1. 创建 Personal Access Token (PAT)
 
-在 arthurdev000 账号创建 PAT：
+在 happyfull-compute-lab 账号创建 PAT：
 
 1. 访问 https://github.com/settings/tokens
 2. 点击 "Generate new token (classic)"
@@ -21,7 +21,7 @@
 
 ### 2. 在 rpa-spec 仓库添加 Secret
 
-1. 访问 https://github.com/arthurdev000/rpa-spec/settings/secrets/actions
+1. 访问 https://github.com/happyfull-compute-lab/rpa-spec/settings/secrets/actions
 2. 点击 "New repository secret"
 3. 设置：
    - Name: `DEPLOY_TOKEN`
